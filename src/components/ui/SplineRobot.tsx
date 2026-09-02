@@ -40,7 +40,7 @@ export function SplineRobot({ onClick }: SplineRobotProps) {
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
       >
         <svg viewBox="0 0 100 100" className="w-full h-full"
-          style={{ filter: 'drop-shadow(0 16px 48px rgba(16,185,129,0.45))' }}>
+          style={{ filter: 'var(--robot-glow)' }}>
 
           {/* Antenna */}
           <motion.g
@@ -48,14 +48,16 @@ export function SplineRobot({ onClick }: SplineRobotProps) {
             transition={{ duration: isChatOpen ? 0.4 : 2.5, repeat: Infinity, ease: 'easeInOut' }}
             style={{ transformOrigin: '50px 25px' }}
           >
-            <line x1="50" y1="25" x2="50" y2="8" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" />
-            <circle cx="50" cy="6" r="4" fill="#10b981">
+            <line x1="50" y1="25" x2="50" y2="8"
+              style={{ stroke: 'var(--primary)' }} strokeWidth="2.5" strokeLinecap="round" />
+            <circle cx="50" cy="6" r="4" style={{ fill: 'var(--primary)' }}>
               <animate attributeName="opacity" values="0.4;1;0.4" dur="1.2s" repeatCount="indefinite" />
             </circle>
           </motion.g>
 
           {/* Head */}
-          <rect x="20" y="25" width="60" height="50" rx="12" fill="#111827" stroke="#10b981" strokeWidth="2.5" />
+          <rect x="20" y="25" width="60" height="50" rx="12" fill="#111827"
+            style={{ stroke: 'var(--primary)' }} strokeWidth="2.5" />
           {/* Face plate */}
           <rect x="28" y="32" width="44" height="36" rx="8" fill="#0a0f1e" />
           {/* Eye sockets */}
@@ -64,32 +66,39 @@ export function SplineRobot({ onClick }: SplineRobotProps) {
 
           {/* Left pupil — mouse tracking */}
           <motion.g style={{ x: eyeX, y: eyeY }}>
-            <circle cx="38.5" cy="45" r="5.5" fill={isChatOpen ? '#fbbf24' : '#10b981'} />
-            <circle cx="40"   cy="43" r="2"   fill="white" opacity="0.9" />
+            <circle cx="38.5" cy="45" r="5.5"
+              style={{ fill: isChatOpen ? '#fbbf24' : 'var(--primary)' }} />
+            <circle cx="40"   cy="43" r="2" fill="white" opacity="0.9" />
           </motion.g>
           {/* Right pupil */}
           <motion.g style={{ x: eyeX, y: eyeY }}>
-            <circle cx="61.5" cy="45" r="5.5" fill={isChatOpen ? '#fbbf24' : '#10b981'} />
-            <circle cx="63"   cy="43" r="2"   fill="white" opacity="0.9" />
+            <circle cx="61.5" cy="45" r="5.5"
+              style={{ fill: isChatOpen ? '#fbbf24' : 'var(--primary)' }} />
+            <circle cx="63"   cy="43" r="2" fill="white" opacity="0.9" />
           </motion.g>
 
           {/* Mouth */}
           {isChatOpen
-            ? <path d="M37 57 Q50 70 63 57" fill="none" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" />
-            : <path d="M39 60 Q50 67 61 60" fill="none" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" />
+            ? <path d="M37 57 Q50 70 63 57" fill="none"
+                style={{ stroke: 'var(--primary)' }} strokeWidth="2.5" strokeLinecap="round" />
+            : <path d="M39 60 Q50 67 61 60" fill="none"
+                style={{ stroke: 'var(--primary)' }} strokeWidth="2.5" strokeLinecap="round" />
           }
 
           {/* Ears */}
-          <rect x="11" y="40" width="9" height="20" rx="3" fill="#10b981" opacity="0.9" />
-          <rect x="80" y="40" width="9" height="20" rx="3" fill="#10b981" opacity="0.9" />
+          <rect x="11" y="40" width="9" height="20" rx="3"
+            style={{ fill: 'var(--primary)' }} opacity="0.9" />
+          <rect x="80" y="40" width="9" height="20" rx="3"
+            style={{ fill: 'var(--primary)' }} opacity="0.9" />
 
           {/* Body */}
-          <rect x="28" y="75" width="44" height="22" rx="7" fill="#111827" stroke="#10b981" strokeWidth="2" />
+          <rect x="28" y="75" width="44" height="22" rx="7" fill="#111827"
+            style={{ stroke: 'var(--primary)' }} strokeWidth="2" />
           {/* Body lights */}
           <circle cx="40" cy="86" r="3" fill="#fbbf24">
             <animate attributeName="opacity" values="0.4;1;0.4" dur="2s"   repeatCount="indefinite" />
           </circle>
-          <circle cx="50" cy="86" r="3" fill="#10b981">
+          <circle cx="50" cy="86" r="3" style={{ fill: 'var(--primary)' }}>
             <animate attributeName="opacity" values="1;0.4;1"   dur="1.6s" repeatCount="indefinite" />
           </circle>
           <circle cx="60" cy="86" r="3" fill="#ef4444">
@@ -122,7 +131,7 @@ export function SplineRobot({ onClick }: SplineRobotProps) {
               fontWeight:     700,
               fontFamily:     'Poppins, sans-serif',
               letterSpacing:  '0.04em',
-              boxShadow:      '0 0 0 0 rgba(16,185,129,0.5)',
+              boxShadow:      '0 0 0 0 rgba(var(--primary-rgb), 0.5)',
               animation:      'chat-pulse 2.2s ease-in-out infinite',
               position:       'relative',
               zIndex:         5,

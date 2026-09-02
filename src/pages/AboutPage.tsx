@@ -182,7 +182,7 @@ export function AboutPage() {
           <div style={{ display:'grid', gridTemplateColumns:'repeat(2,1fr)', gap:12 }}>
             {achievements.map((a, i) => (
               <div key={i} style={{ display:'flex', alignItems:'flex-start', gap:12, padding:'14px 16px', background:'var(--bg)', borderRadius:12, border:'1px solid var(--border)' }}>
-                <div style={{ width:32, height:32, borderRadius:8, background:'rgba(16,185,129,0.10)', border:'1px solid rgba(16,185,129,0.2)', display:'flex', alignItems:'center', justifyContent:'center', color:'var(--primary)', flexShrink:0 }}>
+                <div               style={{ width:32, height:32, borderRadius:8, background:'rgba(var(--primary-rgb),0.10)', border:'1px solid rgba(var(--primary-rgb),0.2)', display:'flex', alignItems:'center', justifyContent:'center', color:'var(--primary)', flexShrink:0 }}>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d={a.icon}/>
                   </svg>

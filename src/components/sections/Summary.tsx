@@ -208,7 +208,7 @@ export function Summary({ onOpenResume }: SummaryProps) {
                 border: '1.5px solid var(--primary)',
                 overflow: 'hidden',
                 background: 'var(--surface)',
-                boxShadow: '0 4px 28px rgba(16,185,129,0.18)',
+                boxShadow: 'var(--chat-shadow)',
               }}>
                 <input
                   type="text"

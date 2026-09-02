@@ -5,28 +5,58 @@
    Inspired by ali-ch.dev: glass morphism, grain, 3D tilt cards
    ================================================================ */
 
-/* ── Tokens: Light — warm cream ─────────────────────────── */
+/* ── @property — makes --primary a typed <color> so it can TRANSITION ── */
+@property --primary {
+  syntax: '<color>';
+  initial-value: #10b981;
+  inherits: true;
+}
+@property --primary-dark {
+  syntax: '<color>';
+  initial-value: #059669;
+  inherits: true;
+}
+@property --primary-end {
+  syntax: '<color>';
+  initial-value: #06d6a0;
+  inherits: true;
+}
+
+/* ── Tokens: Light — warm cream + BROWN accent ───────────── */
 :root {
-  --primary:        #10b981;
-  --primary-dark:   #059669;
-  --primary-rgb:    16, 185, 129;
+  --primary:        #8c6d3f;          /* warm brown (light mode)   */
+  --primary-dark:   #7a5e35;
+  --primary-end:    #c49a52;          /* golden end for gradient   */
+  --primary-rgb:    140, 109, 63;
   --accent:         #C26D5C;
-  --bg:             #edeae3;          /* warm cream page bg    */
-  --bg2:            #e4e0d8;          /* slightly darker cream */
-  --surface:        rgba(255,252,247,0.80); /* warm white glass */
+  --bg:             #edeae3;
+  --bg2:            #e4e0d8;
+  --surface:        rgba(255,252,247,0.80);
   --border:         rgba(0,0,0,0.08);
-  --text:           #1c1714;          /* very dark warm brown  */
-  --text2:          #7a7166;          /* warm grey             */
+  --text:           #1c1714;
+  --text2:          #7a7166;
   --nav-bg:         rgba(237,234,227,0.88);
   --gradient-show:  0;
-  --sage:           #7c6f4a;          /* warm olive            */
+  --sage:           #7c6f4a;
   --sage-border:    rgba(124,111,74,0.26);
   --sage-bg:        rgba(124,111,74,0.09);
   --card-shadow:    0 2px 16px rgba(0,0,0,0.07);
+  --chat-shadow:    0 4px 28px rgba(140,109,63,0.20);
+  --tilt-glow:      rgba(140,109,63,0.13);
+  --robot-glow:     drop-shadow(0 16px 48px rgba(140,109,63,0.40));
+  /* Smooth transition of the primary colour itself */
+  transition:
+    --primary      0.45s ease,
+    --primary-dark 0.45s ease,
+    --primary-end  0.45s ease;
 }
 
-/* ── Tokens: Dark ───────────────────────────────────────────── */
+/* ── Tokens: Dark — GREEN accent ────────────────────────── */
 :root.dark-mode, .dark-mode {
+  --primary:        #10b981;          /* green (dark mode)         */
+  --primary-dark:   #059669;
+  --primary-end:    #06d6a0;
+  --primary-rgb:    16, 185, 129;
   --bg:             #0e0e0e;
   --bg2:            #141414;
   --surface:        rgba(255,255,255,0.04);
@@ -39,6 +69,9 @@
   --sage-border:    rgba(111,184,138,0.28);
   --sage-bg:        rgba(111,184,138,0.08);
   --card-shadow:    0 2px 20px rgba(0,0,0,0.35);
+  --chat-shadow:    0 4px 28px rgba(16,185,129,0.20);
+  --tilt-glow:      rgba(16,185,129,0.13);
+  --robot-glow:     drop-shadow(0 16px 48px rgba(16,185,129,0.45));
 }
 
 /* ── Resets ─────────────────────────────────────────────────── */
@@ -50,7 +83,9 @@ body {
   background-color: var(--bg);
   color: var(--text);
   overflow-x: hidden;
-  transition: background-color 0.35s ease, color 0.35s ease;
+  transition:
+    background-color 0.45s ease,
+    color            0.45s ease;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -334,11 +369,11 @@ section { padding: 100px 0; position: relative; z-index: 1; }
 }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
-/* Chat CTA button pulse */
+/* Chat CTA button pulse — uses var(--primary-rgb) so it goes brown in light mode */
 @keyframes chat-pulse {
-  0%   { box-shadow: 0 0 0 0   rgba(16,185,129,0.55); }
-  60%  { box-shadow: 0 0 0 12px rgba(16,185,129,0);   }
-  100% { box-shadow: 0 0 0 0   rgba(16,185,129,0);    }
+  0%   { box-shadow: 0 0 0 0    rgba(var(--primary-rgb), 0.55); }
+  60%  { box-shadow: 0 0 0 12px rgba(var(--primary-rgb), 0);   }
+  100% { box-shadow: 0 0 0 0    rgba(var(--primary-rgb), 0);   }
 }
 
 /* Dot blink inside chat button */
@@ -361,7 +396,7 @@ section { padding: 100px 0; position: relative; z-index: 1; }
   margin-bottom: 14px;
 }
 .hero-name span {
-  background: linear-gradient(135deg, var(--primary) 0%, #06d6a0 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-end) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -447,12 +482,12 @@ section { padding: 100px 0; position: relative; z-index: 1; }
 
 .spin-ring {
   width: 36px; height: 36px;
-  border: 3px solid rgba(16,185,129,0.20);
-  border-top-color:  #10b981;
-  border-right-color: rgba(16,185,129,0.50);
+  border: 3px solid rgba(var(--primary-rgb), 0.20);
+  border-top-color:   var(--primary);
+  border-right-color: rgba(var(--primary-rgb), 0.50);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
-  box-shadow: 0 0 12px rgba(16,185,129,0.25);
+  box-shadow: 0 0 12px rgba(var(--primary-rgb), 0.25);
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
