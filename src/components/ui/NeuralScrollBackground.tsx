@@ -35,7 +35,8 @@ class Particle {
     }
 
     draw(ctx: CanvasRenderingContext2D, h: number) {
-        ctx.fillStyle = `hsla(${h}, 70%, 50%, ${this.opacity})`
+        // Very low opacity — subtle, not distracting
+        ctx.fillStyle = `hsla(${h}, 60%, 50%, ${this.opacity * 0.18})`
         ctx.beginPath()
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
         ctx.fill()
@@ -70,7 +71,8 @@ export function NeuralScrollBackground() {
 
         const init = () => {
             particles = []
-            const particleCount = Math.floor((canvas.width * canvas.height) / 15000)
+            // Fewer particles for a cleaner, subtle look
+            const particleCount = Math.floor((canvas.width * canvas.height) / 38000)
             for (let i = 0; i < particleCount; i++) {
                 particles.push(new Particle(canvas.width, canvas.height))
             }
@@ -92,7 +94,7 @@ export function NeuralScrollBackground() {
                     const dist = Math.sqrt(dx * dx + dy * dy)
 
                     if (dist < 100) {
-                        ctx.strokeStyle = `hsla(${currentHue}, 70%, 50%, ${0.2 * (1 - dist / 100)})`
+                        ctx.strokeStyle = `hsla(${currentHue}, 60%, 50%, ${0.04 * (1 - dist / 100)})`
                         ctx.lineWidth = 0.5
                         ctx.beginPath()
                         ctx.moveTo(p.x, p.y)

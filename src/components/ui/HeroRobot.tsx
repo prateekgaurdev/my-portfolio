@@ -20,7 +20,7 @@ Reference Material (Use ONLY when asked):
 Name: Prateek Gaur
 Role: AI Engineer & Full Stack Developer
 Skills: LLMs, RAG, Langchain, CrewAI, Python, FastAPI, React
-Contact: github.com/DrDarkShadow, linkedin.com/in/prateekgaur1609`
+Contact: github.com/prateekgaurdev, linkedin.com/in/prateekgaur1609`
 
 export function HeroRobot({ size = 280 }: HeroRobotProps) {
     const containerRef = useRef<HTMLDivElement>(null)

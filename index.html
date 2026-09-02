@@ -3,21 +3,31 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="16x16" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Prateek Gaur — AI Engineer & Full Stack Developer Portfolio" />
+  <meta name="author" content="Prateek Gaur" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)"  content="#0e0e0e" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#edeae3" />
 
-  <!-- SEO -->
-  <meta name="description" content="Prateek Gaur - AI Engineer Portfolio" />
-
-  <!-- Google Fonts - Poppins (like original) -->
+  <!-- Google Fonts — Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome -->
+  <!-- Font Awesome kit -->
   <script src="https://kit.fontawesome.com/1d381cab2c.js" crossorigin="anonymous"></script>
 
-  <title>Prateek's Portfolio</title>
+  <title>Prateek Gaur — AI Engineer</title>
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function () {
+      var saved = localStorage.getItem('darkMode');
+      var dark  = saved !== null ? saved === 'true' : true;
+      if (dark) document.documentElement.classList.add('dark-mode');
+    })();
+  </script>
 </head>
 
 <body>

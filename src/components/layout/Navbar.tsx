@@ -1,48 +1,71 @@
+import { NavLink, useNavigate } from 'react-router-dom'
+
 interface NavProps {
-    darkMode: boolean
-    onToggleTheme: () => void
+  darkMode: boolean
+  onToggleTheme: () => void
 }
 
 const navItems = [
-    { name: 'Summary', target: 'summary' },
-    { name: 'About', target: 'about' },
-    { name: 'Skills', target: 'skills' },
-    { name: 'Projects', target: 'projects' },
-    { name: 'Contact', target: 'contact' },
+  { name: 'Home',     path: '/' },
+  { name: 'About',    path: '/about' },
+  { name: 'Skills',   path: '/skills' },
+  { name: 'Projects', path: '/projects' },
+  { name: 'Contact',  path: '/contact' },
 ]
 
 export function Nav({ darkMode, onToggleTheme }: NavProps) {
-    const scrollToSection = (id: string) => {
-        const element = document.getElementById(id)
-        element?.scrollIntoView({ behavior: 'smooth' })
-    }
+  const navigate = useNavigate()
 
-    return (
-        <nav className="nav py-3">
-            <div className="container">
-                <h2>Prateek's Portfolio</h2>
-                <ul>
-                    {navItems.map((item) => (
-                        <li key={item.target} onClick={() => scrollToSection(item.target)}>
-                            {item.name}
-                        </li>
-                    ))}
-                    <li>
-                        <input
-                            type="checkbox"
-                            id="checkbox"
-                            className="checkbox"
-                            checked={darkMode}
-                            onChange={onToggleTheme}
-                        />
-                        <label htmlFor="checkbox" className="checkbox-label">
-                            <i className="fas fa-moon"></i>
-                            <i className="fas fa-sun"></i>
-                            <span className="ball"></span>
-                        </label>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    )
+  return (
+    <header role="banner" className="nav-wrapper">
+      <nav className="nav-pill glass-strong hairline-t">
+
+        {/* Logo */}
+        <div className="nav-logo" onClick={() => navigate('/')}>
+          <span className="nav-logo-name" style={{ fontSize: '1.05rem' }}>Prateek Gaur</span>
+        </div>
+
+        {/* Links */}
+        <ul className="nav-links">
+          {navItems.map((item) => (
+            <li key={item.path}>
+              <NavLink
+                to={item.path}
+                end={item.path === '/'}
+                className={({ isActive }) =>
+                  `nav-link${isActive ? ' active' : ''}`
+                }
+              >
+                {item.name}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+
+        {/* Right controls */}
+        <div className="nav-right">
+          <input
+            type="checkbox"
+            id="theme-checkbox"
+            className="checkbox"
+            checked={darkMode}
+            onChange={onToggleTheme}
+          />
+          <label htmlFor="theme-checkbox" className="checkbox-label">
+            <i className="fas fa-moon" />
+            <i className="fas fa-sun" />
+            <span className="ball" />
+          </label>
+
+          <button
+            className="nav-hire-btn"
+            onClick={() => navigate('/contact')}
+          >
+            Hire Me
+          </button>
+        </div>
+
+      </nav>
+    </header>
+  )
 }

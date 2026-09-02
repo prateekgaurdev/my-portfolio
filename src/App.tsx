@@ -1,58 +1,23 @@
-import { useState, useEffect } from 'react'
-import { Nav } from './components/layout/Navbar'
-import { Summary } from './components/sections/Summary'
-import { About } from './components/sections/About'
-import { Skills } from './components/sections/Skills'
-import { Projects } from './components/sections/Projects'
-import { Contact } from './components/sections/Contact'
-import { ResumeViewer } from './components/resume/ResumeViewer'
-import { NeuralScrollBackground } from './components/ui/NeuralScrollBackground'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Layout }       from './components/layout/Layout'
+import { HomePage }     from './pages/HomePage'
+import { AboutPage }    from './pages/AboutPage'
+import { SkillsPage }   from './pages/SkillsPage'
+import { ProjectsPage } from './pages/ProjectsPage'
+import { ContactPage }  from './pages/ContactPage'
 
-function App() {
-  const [darkMode, setDarkMode] = useState(
-    sessionStorage.getItem('darkMode') === 'true'
-  )
-  const [isResumeOpen, setIsResumeOpen] = useState(false)
-
-  const handleThemeToggle = () => {
-    setDarkMode(!darkMode)
-    sessionStorage.setItem('darkMode', (!darkMode).toString())
-  }
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('aos-animate')
-          }
-        })
-      },
-      { threshold: 0.1 }
-    )
-
-    document.querySelectorAll('[data-aos]').forEach((el) => {
-      observer.observe(el)
-    })
-
-    return () => observer.disconnect()
-  }, [])
-
+export default function App() {
   return (
-    <div className={darkMode ? 'dark-mode' : ''} id="app">
-      <NeuralScrollBackground />
-      <Nav darkMode={darkMode} onToggleTheme={handleThemeToggle} />
-
-      <Summary onOpenResume={() => setIsResumeOpen(true)} />
-
-      <About />
-      <Skills />
-      <Projects />
-      <Contact />
-
-      <ResumeViewer isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/"         element={<HomePage />}     />
+          <Route path="/about"    element={<AboutPage />}    />
+          <Route path="/skills"   element={<SkillsPage />}   />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/contact"  element={<ContactPage />}  />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
-
-export default App

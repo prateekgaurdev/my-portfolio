@@ -113,7 +113,7 @@ export function Hero() {
                     >
                         {[
                             { href: 'https://www.linkedin.com/in/prateekgaur1609/', icon: Linkedin, label: 'LinkedIn' },
-                            { href: 'https://github.com/DrDarkShadow', icon: Github, label: 'GitHub' },
+                            { href: 'https://github.com/prateekgaurdev', icon: Github, label: 'GitHub' },
                             { href: 'mailto:gaur.prateek.1609@gmail.com', icon: Mail, label: 'Email' },
                         ].map((social) => (
                             <a

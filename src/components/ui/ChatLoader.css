@@ -1,54 +1,43 @@
-/* From Uiverse.io by adamgiebl */
 .dots-container {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100%;
     width: 100%;
-    padding: 1rem;
+    padding: 0.75rem;
 }
 
 .dot {
-    height: 20px;
-    width: 20px;
-    margin-right: 10px;
-    border-radius: 10px;
-    background-color: #b3d4fc;
-    animation: pulse 1.5s infinite ease-in-out;
+    height: 10px;
+    width: 10px;
+    margin-right: 8px;
+    border-radius: 50%;
+    background-color: #10b981;
+    animation: dot-pulse 1.4s infinite ease-in-out;
 }
 
 .dot:last-child {
     margin-right: 0;
 }
 
-.dot:nth-child(1) {
-    animation-delay: -0.3s;
-}
+.dot:nth-child(1) { animation-delay: -0.3s; }
+.dot:nth-child(2) { animation-delay: -0.1s; }
+.dot:nth-child(3) { animation-delay:  0.1s; }
 
-.dot:nth-child(2) {
-    animation-delay: -0.1s;
-}
-
-.dot:nth-child(3) {
-    animation-delay: 0.1s;
-}
-
-@keyframes pulse {
+@keyframes dot-pulse {
     0% {
-        transform: scale(0.8);
-        background-color: #b3d4fc;
-        box-shadow: 0 0 0 0 rgba(178, 212, 252, 0.7);
+        transform: scale(0.75);
+        background-color: #10b981;
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.55);
     }
-
     50% {
-        transform: scale(1.2);
-        background-color: #6793fb;
-        box-shadow: 0 0 0 10px rgba(178, 212, 252, 0);
+        transform: scale(1.25);
+        background-color: #06d6a0;
+        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
     }
-
     100% {
-        transform: scale(0.8);
-        background-color: #b3d4fc;
-        box-shadow: 0 0 0 0 rgba(178, 212, 252, 0.7);
+        transform: scale(0.75);
+        background-color: #10b981;
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
     }
 }
