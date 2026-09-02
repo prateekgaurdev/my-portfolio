@@ -19,7 +19,7 @@ if (!GEMINI_API_KEY) {
 
 // ── GET /api/chat ─────────────────────────────────────────────
 app.get('/api/chat', (_req, res) => {
-    res.json({ status: 'ok', message: 'Chat API (Gemini 3.5 Flash) is running.' })
+    res.json({ status: 'ok', message: 'Chat API (Gemini 2.5 Flash) is running.' })
 })
 
 // ── POST /api/chat ────────────────────────────────────────────
@@ -43,8 +43,8 @@ app.post('/api/chat', async (req, res) => {
         const body = {
             contents,
             generationConfig: {
-                maxOutputTokens: 600,
-                temperature: 0.7,
+                maxOutputTokens: 1024,
+                temperature: 0.4,
             },
         }
 
@@ -52,9 +52,9 @@ app.post('/api/chat', async (req, res) => {
             body.systemInstruction = { parts: [{ text: systemMsg.content }] }
         }
 
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${GEMINI_API_KEY}`
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`
 
-        console.log('→ Gemini 3.5 Flash request...')
+        console.log('→ Gemini 2.5 Flash request...')
 
         const response = await fetch(url, {
             method: 'POST',
@@ -69,11 +69,18 @@ app.post('/api/chat', async (req, res) => {
         }
 
         const data = await response.json()
-        const aiMessage =
-            data.candidates?.[0]?.content?.parts?.[0]?.text ??
-            "Couldn't generate a response."
 
-        console.log('← AI:', aiMessage.slice(0, 80), '...')
+        // Log finish reason to detect truncation
+        const candidate  = data.candidates?.[0]
+        const finishReason = candidate?.finishReason ?? 'UNKNOWN'
+        const aiMessage  = candidate?.content?.parts?.[0]?.text ?? "Couldn't generate a response."
+
+        console.log(`← AI [${finishReason}]: ${aiMessage.slice(0, 120)}${aiMessage.length > 120 ? '…' : ''}`)
+
+        if (finishReason === 'MAX_TOKENS') {
+            console.warn('⚠️  Response hit token limit — consider raising maxOutputTokens further')
+        }
+
         res.json({ message: aiMessage })
 
     } catch (error) {
@@ -138,6 +145,6 @@ app.post('/api/contact', async (req, res) => {
 
 app.listen(3001, () => {
     console.log('🤖  API server running on http://localhost:3001')
-    console.log('   Model: Gemini 3.5 Flash')
+    console.log('   Model: Gemini 2.5 Flash')
     console.log('   Proxy: npm run dev → Vite forwards /api/* here')
 })
